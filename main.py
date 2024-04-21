@@ -27,7 +27,7 @@ from urllib.parse import urlparse, parse_qs
 
 
 bot = Client("bot",
-             bot_token= "77020817747:AAGxb0TK6_PZZc0znIO9iXBJG4erxnL_wDQ", 
+             bot_token= "7020817747:AAGxb0TK6_PZZc0znIO9iXBJG4erxnL_wDQ", 
              api_id= 28590119,
              api_hash= "2494557bf21e6c5152f26070aa1a97c7")
 auth_users = [1923922961,6173939553]
