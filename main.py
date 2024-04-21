@@ -358,7 +358,6 @@ async def account_login(bot: Client, m: Message):
 
             
             elif 'api.zoom.us' in url:
-                    def get_reachable_url(url):
                         parsed_url = urlparse(url)
                         query_params = parse_qs(parsed_url.query)
     
