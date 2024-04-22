@@ -180,7 +180,7 @@ async def account_login(bot: Client, m: Message):
             return
     else:
         
-        editable = await m.reply_text(f"**➠ 𝐒𝐞𝐧𝐝 𝐌𝐞 𝐘𝐨𝐮𝐫 𝐓𝐗𝐓 𝐅𝐢𝐥𝐞 𝐢𝐧 𝐀 𝐏𝐫𝐨𝐩𝐞𝐫 𝐖𝐚𝐲 \n\n➠ TXT FORMAT : LINK : URL \n➠ 𝐌𝐨𝐝𝐢𝐟𝐢𝐞𝐝 𝐁𝐲: @ITS_NOT_ROMO **")
+        editable = await m.reply_text(f"**➠ 𝐒𝐞𝐧𝐝 𝐌𝐞 𝐘𝐨𝐮𝐫 𝐓𝐗𝐓 𝐅𝐢𝐥𝐞 𝐢𝐧 𝐀 𝐏𝐫𝐨𝐩𝐞𝐫 𝐖𝐚𝐲 \n\n➠ TXT FORMAT : FILE NAME  : URL \n➠ 𝐌𝐨𝐝𝐢𝐟𝐢𝐞𝐝 𝐁𝐲: @ITS_NOT_ROMO **")
         input: Message = await bot.listen(editable.chat.id)
         editable = await editable.edit(f"**⚙️PROCESSING INPUT.......**")
 
@@ -429,9 +429,7 @@ async def account_login(bot: Client, m: Message):
                              os.remove(temp_file_path)
                         except Exception as e:
                             print("Error:", str(e))
-
-                                 
-              
+ 
 
             elif '/master.mpd' in url:
              try:
@@ -478,6 +476,9 @@ async def account_login(bot: Client, m: Message):
 
             if "youtu" in url:
                 ytf = f"b[height<={raw_text2}][ext=mp4]/bv[height<={raw_text2}][ext=mp4]+ba[ext=m4a]/b[ext=mp4]"
+            elif "zoom" in url:
+                cmd = f'yt-dlp -f "{ytf}" --no-keep-video --remux-video mkv "{url}" --headers "Cookie": "_zm_mtk_guid=a70cb245265640f1bf3c50d732205910; _zm_visitor_guid=a70cb245265640f1bf3c50d732205910; _zm_lang=en-US; OnetrustActiveGroups=C0001C0002C0003C0004; _zm_tracking_guid=239dbf2df3db452db562a558d6e6fc3e; _zm_ssid=aw1_c_e4Xx6ZUjR8iRgVjiJD7cuQ; _zm_ctaid=Y-c_S6Z2SZyDjrRWA9FTmA.1713775400705.ed8e24d2008532fce2dc86243e555263; _zm_chtaid=180; _zm_csp_script_nonce=9MY4-epvQFCYPa1a44Ci8Q; _zm_currency=INR; __cf_bm=O1VwPxOvnNTW6VBH94DMubukQtxYxyZUqz3RdpQN8VU-1713775400-1.0.1.1-Sh0Ry8FFY3wOQZriyP_ClmIgnogLJQqye0zOEgmt.22Dp5OBMTk71DogmhopWmOER734nrwymSMamIbai1Br1w; wULrMv6t=A0RZ-QSPAQAAZwQdQ9Z2GFKhI0Wv4TpZuaDqDdQFMjtSemgLojqCMQu4vcJKAS111U-ucuopwH8AAEB3AAAAAA|1|0|a66808436f895ad0dfc0e56984783525bd0f945f; _zm_page_auth=aw1_c_-G8dx2EvSo2xhR2wb3tMgw; _zm_cdn_blocked=unlog_unblk; OptanonAlertBoxClosed=2024-04-22T08:44:00.737Z; OptanonConsent=isGpcEnabled=0&datestamp=Mon+Apr+22+2024+14%3A28%3A34+GMT%2B0530+(India+Standard+Time)&version=6.21.0&isIABGlobal=false&hosts=&consentId=35f10ea2-5e27-4cdd-a66b-0ea64a799604&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A1&geolocation=IN%3BMH&AwaitingReconsent=false; cred=994B2013B726C91034FFF7BF6081BAAB" -o "{name}.%(ext)s"'
+                
             else:
                 ytf = f"b[height<={raw_text2}]/bv[height<={raw_text2}]+ba/b/bv+ba"
 
