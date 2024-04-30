@@ -356,15 +356,6 @@ async def account_login(bot: Client, m: Message):
             elif 'videos.classplusapp' in url:
              url = requests.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6MzgzNjkyMTIsIm9yZ0lkIjoyNjA1LCJ0eXBlIjoxLCJtb2JpbGUiOiI5MTcwODI3NzQyODkiLCJuYW1lIjoiQWNlIiwiZW1haWwiOm51bGwsImlzRmlyc3RMb2dpbiI6dHJ1ZSwiZGVmYXVsdExhbmd1YWdlIjpudWxsLCJjb3VudHJ5Q29kZSI6IklOIiwiaXNJbnRlcm5hdGlvbmFsIjowLCJpYXQiOjE2NDMyODE4NzcsImV4cCI6MTY0Mzg4NjY3N30.hM33P2ai6ivdzxPPfm01LAd4JWv-vnrSxGXqvCirCSpUfhhofpeqyeHPxtstXwe0'}).json()['url']
 
-            
-            # elif 'api.zoom.us' in url:
-            #             parsed_url = urlparse(url)
-            #             query_params = parse_qs(parsed_url.query)
-    
-            #             if 'originRequestUrl' in query_params:
-            #                 url = query_params['originRequestUrl'][0]
-                            # print(url)
-                            # return url
                                          
             elif 'psitoffers' in url:
                 if 'testkey' in url:
@@ -375,6 +366,7 @@ async def account_login(bot: Client, m: Message):
                      nurl =  pwdl + id + "/master.mpd" 
                      try:
                         response = requests.get(nurl)
+                        quality = raw_text2
                         if response.status_code == 200:
                          with tempfile.NamedTemporaryFile(delete=False) as temp_file:
                           temp_file.write(response.content)
@@ -585,5 +577,5 @@ async def account_login(bot: Client, m: Message):
     processing_request = False  # Reset the processing flag  
     
   
-processing_request = False  # Reset the processing flag  
+processing_request = False  
 bot.run()
