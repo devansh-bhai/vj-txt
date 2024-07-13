@@ -12,7 +12,7 @@ import tgcrypto
 import aiofiles
 from pyrogram.types import Message
 from pyrogram import Client, filters
-
+import re
 
 def duration(filename):
     result = subprocess.run([
@@ -76,6 +76,57 @@ def time_name():
     current_time = now.strftime("%H%M%S")
     return f"{date} {current_time}.mp4"
 
+
+async def vimo_url(url):
+    # Extract videocode and videohash using regular expressions
+    videocode = re.search(r'videocode=([0-9]+)', url).group(1)
+    videohash = re.search(r'videohash=([a-f0-9]+)', url).group(1)
+    
+    # URL to get the JWT
+    jwt_url = "https://vimeo.com/_next/jwt"
+    video_url = f"https://api.vimeo.com/videos/{videocode}:{videohash}?transcript=1&title=0&portrait=0&byline=0&share=0&like=0&watch_later=0&transparent=0&ask_ai=0&fields=embed_player_config_url,width,height"
+    
+
+    # Headers for the first request to get JWT
+    headers = {
+        'Newrelic': 'eyJ2IjpbMCwxXSwiZCI6eyJ0eSI6IkJyb3dzZXIiLCJhYyI6IjM5Mjg0IiwiYXAiOiI3NDQ3NDY4IiwiaWQiOiJjNmExZTY2OTY0Yjc2NTQ3IiwidHIiOiIyZWY5MDRmZTZmODU0MDdiZjBmMzE2NjA4Nzk5NDE1MCIsInRpIjoxNzIwODA4MjA4NzI1fX0=',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest'
+    }
+
+    # Send GET request to get JWT
+    response = requests.get(jwt_url, headers=headers)
+
+    # Parse the JSON response and extract the token
+    jwt_token = response.json().get('token')
+
+    # Headers for the second request with Authorization header
+    headers2 = {
+        'Authorization': f'jwt {jwt_token}',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest'
+    }
+
+    # Send GET request to the second URL with Authorization header
+    response2 = requests.get(video_url, headers=headers2)
+
+    # Parse the response from the second request
+    embed_player_config_url = response2.json()
+
+    # Extract the embed player config URL
+    embed_url = embed_player_config_url.get('embed_player_config_url')
+
+    # Print the embed player config URL
+
+    # Extract avc_url from the embed_url response
+    response3 = requests.get(embed_url)
+    dl_url = response3.json()
+    avc_url = dl_url['request']['files']['hls']['cdns']['akfire_interconnect_quic']['avc_url']
+    
+    return avc_url
 
 
 async def download_video(url, cmd, name):
