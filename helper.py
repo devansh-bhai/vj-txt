@@ -89,8 +89,6 @@ async def vimo_url(url):
    
 
 async def download_video(url, cmd, name):
-    #download_cmd = f'{cmd} --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"'
-    #time.sleep(2)
     download_cmd = f'{cmd} -R infinite --fragment-retries 25 --socket-timeout 50 --external-downloader aria2c --downloader-args "aria2c: -x 16 -j 32"'
     global failed_counter
     print(download_cmd)
