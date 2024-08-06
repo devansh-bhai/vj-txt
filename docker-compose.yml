@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vj-txt
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000" # Modify or remove this line if your app does not need to expose a port
+    environment:
+      - ENVIRONMENT=production # Add any environment variables needed by your application
+    command: ["python3", "main.py"]
