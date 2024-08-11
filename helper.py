@@ -78,8 +78,8 @@ def time_name():
 
 
 async def vimo_url(url):
-    url.replace('&','')
-    dl_resp_link = "https://allen-dl.romeoboi.workers.dev/?link="+url+"&method=json"
+    nurl = url.replace('&','')
+    dl_resp_link = "https://allen-dl.romeoboi.workers.dev/?link="+nurl+"&method=json"
     #print(dl_resp_link)
     dl_data = requests.get(dl_resp_link)
     #print(dl_data)
