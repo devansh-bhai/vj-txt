@@ -27,11 +27,11 @@ from urllib.parse import urlparse, parse_qs
 
 
 bot = Client("bot",
-             bot_token= "7020817747:AAEkqanw8Mtmn_CDiBIneDs5lTQAASxcg3Q", 
+             bot_token= "7406262931:AAGD8dUugYxEUZYJl8roXNVZW_Yazbl1i_c", 
              api_id= 28590119,
              api_hash= "2494557bf21e6c5152f26070aa1a97c7")
-auth_users = [1923922961,6173939553]
-#romeo  -1923922961  |  shelby_copper - 6173939553 
+auth_users = [1923922961,7362726407]
+#romeo  -1923922961  |  shelby_copper - 7362726407
 
 
 # Extras 
