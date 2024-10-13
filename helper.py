@@ -120,6 +120,8 @@ async def download_video(url, cmd, name):
 
 async def send_vid(bot: Client, m: Message, cc, filename, thumb, name,thumb2):
     reply = await m.reply_text(f"**⚡️ Starting Uploading ...** - `{name}`")
+    if os.path.exists('thumb1.jpg'):
+        os.remove("thumb1.jpg")
     try:
         if thumb != "no":
             subprocess.run(['wget', thumb2, '-O', 'thumb1.jpg'], check=True)  # Fixing this line
