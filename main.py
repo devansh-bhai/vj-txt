@@ -353,7 +353,7 @@ async def account_login(bot: Client, m: Message):
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
                                          
             elif "funacademy.app/play?url=" in url or "funacademy.app/m3u8?url=" :
-                _ , data = url.split('=')
+                _ , data = url.split('url=')
                 decoded_bytes = base64.b64decode(data)
                 url = decoded_bytes.decode('utf-8')
 
@@ -377,12 +377,6 @@ async def account_login(bot: Client, m: Message):
             else: 
                 cmd = f'yt-dlp -f "{ytf}" --no-keep-video --remux-video mkv "{url}" -o "{name}.%(ext)s"'
                 
-            # if "zoom" in url:
-            #     cmd = f'yt-dlp -f "{ytf}" --no-keep-video --remux-video mkv "{url}" --add-headers "Cookie": "_zm_mtk_guid=a70cb245265640f1bf3c50d732205910; _zm_visitor_guid=a70cb245265640f1bf3c50d732205910; _zm_lang=en-US; OnetrustActiveGroups=C0001C0002C0003C0004; _zm_tracking_guid=239dbf2df3db452db562a558d6e6fc3e; _zm_ssid=aw1_c_e4Xx6ZUjR8iRgVjiJD7cuQ; _zm_ctaid=Y-c_S6Z2SZyDjrRWA9FTmA.1713775400705.ed8e24d2008532fce2dc86243e555263; _zm_chtaid=180; _zm_csp_script_nonce=9MY4-epvQFCYPa1a44Ci8Q; _zm_currency=INR; __cf_bm=O1VwPxOvnNTW6VBH94DMubukQtxYxyZUqz3RdpQN8VU-1713775400-1.0.1.1-Sh0Ry8FFY3wOQZriyP_ClmIgnogLJQqye0zOEgmt.22Dp5OBMTk71DogmhopWmOER734nrwymSMamIbai1Br1w; wULrMv6t=A0RZ-QSPAQAAZwQdQ9Z2GFKhI0Wv4TpZuaDqDdQFMjtSemgLojqCMQu4vcJKAS111U-ucuopwH8AAEB3AAAAAA|1|0|a66808436f895ad0dfc0e56984783525bd0f945f; _zm_page_auth=aw1_c_-G8dx2EvSo2xhR2wb3tMgw; _zm_cdn_blocked=unlog_unblk; OptanonAlertBoxClosed=2024-04-22T08:44:00.737Z; OptanonConsent=isGpcEnabled=0&datestamp=Mon+Apr+22+2024+14%3A28%3A34+GMT%2B0530+(India+Standard+Time)&version=6.21.0&isIABGlobal=false&hosts=&consentId=35f10ea2-5e27-4cdd-a66b-0ea64a799604&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A1&geolocation=IN%3BMH&AwaitingReconsent=false; cred=994B2013B726C91034FFF7BF6081BAAB" -o "{name}.%(ext)s"'
-                
-            # else
-            #     cmd = f'yt-dlp -f "{ytf}+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv "{url}" -o "{name}.%(ext)s"'
-
             try:   
                 cc = f' **➭ Index » {str(count).zfill(3)} **\n**➭ Title »  {name1}.mkv**\n**➭ 𝐁𝐚𝐭𝐜𝐡 » {b_name} **\n**➭ Quality » {raw_text2}**\n\n✨ **𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐃 𝐁𝐘 : {CR}**\n**━━━━━━━✦✗✦━━━━━━━**'
                 cc1 = f'**➭ Index » {str(count).zfill(3)} **\n**➭ Title » {name1}.pdf** \n**➭ 𝐁𝐚𝐭𝐜𝐡 »  {b_name}**\n\n✨ **𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃𝐄𝐃 𝐁𝐘 : {CR}**\n**━━━━━━━✦✗✦━━━━━━━**'                            
