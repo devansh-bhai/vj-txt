@@ -352,7 +352,7 @@ async def account_login(bot: Client, m: Message):
                         text = await resp.text()
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
                                          
-            elif "funacademy.app/play?url=" in url or "funacademy.app/m3u8?url=" :
+            elif "funacademy.app/play?url=" in url or "funacademy.app/m3u8?url=" in url :
                 _ , data = url.split('url=')
                 decoded_bytes = base64.b64decode(data)
                 url = decoded_bytes.decode('utf-8')
