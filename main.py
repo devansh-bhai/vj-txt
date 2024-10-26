@@ -22,16 +22,15 @@ import sys
 import os
 import random
 import re
-import tempfile
-from urllib.parse import urlparse, parse_qs
+import base64
 
 
 bot = Client("bot",
              bot_token= "7406262931:AAGD8dUugYxEUZYJl8roXNVZW_Yazbl1i_c", 
              api_id= 28590119,
              api_hash= "2494557bf21e6c5152f26070aa1a97c7")
-auth_users = [1923922961,7362726407]
-#romeo  -1923922961  |  shelby_copper - 7362726407
+auth_users = [1923922961,6173939553]
+#romeo  -1923922961  |  shelby_copper - 6173939553 
 
 
 # Extras 
@@ -352,115 +351,11 @@ async def account_login(bot: Client, m: Message):
                     async with session.get(url, headers={'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Accept-Language': 'en-US,en;q=0.9', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive', 'Pragma': 'no-cache', 'Referer': 'http://www.visionias.in/', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Site': 'cross-site', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Linux; Android 12; RMX2121) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Mobile Safari/537.36', 'sec-ch-ua': '"Chromium";v="107", "Not=A?Brand";v="24"', 'sec-ch-ua-mobile': '?1', 'sec-ch-ua-platform': '"Android"',}) as resp:
                         text = await resp.text()
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
-
-            elif 'videos.classplusapp' in url:
-             url = requests.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6MzgzNjkyMTIsIm9yZ0lkIjoyNjA1LCJ0eXBlIjoxLCJtb2JpbGUiOiI5MTcwODI3NzQyODkiLCJuYW1lIjoiQWNlIiwiZW1haWwiOm51bGwsImlzRmlyc3RMb2dpbiI6dHJ1ZSwiZGVmYXVsdExhbmd1YWdlIjpudWxsLCJjb3VudHJ5Q29kZSI6IklOIiwiaXNJbnRlcm5hdGlvbmFsIjowLCJpYXQiOjE2NDMyODE4NzcsImV4cCI6MTY0Mzg4NjY3N30.hM33P2ai6ivdzxPPfm01LAd4JWv-vnrSxGXqvCirCSpUfhhofpeqyeHPxtstXwe0'}).json()['url']
-
                                          
-            elif 'psitoffers' in url:
-                if 'testkey' in url:
-                    if '&quality=' in url:
-                     id_with_params = url.split("=")[1]  # Extract the part after the '=' sign along with parameters
-                     id = id_with_params.split("&")[0]  # Extract the part before the '&' sign
-                     #url =  "https://muftukmall.c1.is/pw.php?id=" + id + "&quality="+raw_text2   # link downlod command
-                     nurl =  pwdl + id + "/master.mpd" 
-                     try:
-                        response = requests.get(nurl)
-                        quality = raw_text2
-                        if response.status_code == 200:
-                         with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                          temp_file.write(response.content)
-                          temp_file_path = temp_file.name
-                         with open(temp_file_path, "r") as f:
-                            playlist_content = f.read()
-                         lines = playlist_content.split('\n')
-                         matching_url = None
-                         for line in lines:
-                            if line.startswith('#EXT-X-STREAM-INF'):
-                                resolution = re.search(r'RESOLUTION=(\d+x\d+)', line).group(1)
-                                if quality in resolution:
-                                    matching_url = lines[lines.index(line) + 1]
-                                    break
-                        if matching_url:
-                            url = matching_url
-                        else:
-                            print("Matching quality not found in the playlist")
-
-            #Clean up the temporary file
-                        os.remove(temp_file_path)
-        
-                     except Exception as e:
-                      print("Error:", str(e))
-
-                else:
-                        id_with_params = url.split("=")[1]  # Extract the part after the '=' sign along with parameters
-                        id = id_with_params.split("&")[0]  # Extract the part before the '&' sign
-                        #url =  "https://psitoffers.store/master.php?vid=" + id + "&quality="+raw_text2   # link downlod command
-                        nurl =  pwdl + id + "/master.mpd" 
-                        try:
-                             response = requests.get(nurl)
-                             quality = raw_text2
-                             if response.status_code == 200:
-                              with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                               temp_file.write(response.content)
-                               temp_file_path = temp_file.name
-                              with open(temp_file_path, "r") as f:
-                                playlist_content = f.read()
-                              lines = playlist_content.split('\n')
-                              matching_url = None
-                             for line in lines:
-                                if line.startswith('#EXT-X-STREAM-INF'):
-                                    resolution = re.search(r'RESOLUTION=(\d+x\d+)', line).group(1)
-                                    if quality in resolution:
-                                        matching_url = lines[lines.index(line) + 1]
-                                        break
-                             if matching_url:
-                              url = matching_url
-                             else:
-                               print("Matching quality not found in the playlist")
-                             os.remove(temp_file_path)
-                        except Exception as e:
-                            print("Error:", str(e))
- 
-
-            elif '/master.mpd' in url:
-             try:
-        # Make a GET request to the HLS playlist URL to download the file
-                response = requests.get(url)
-                quality = raw_text2
-        # Check if the request was successful
-                if response.status_code == 200:
-            # Create a temporary file to save the HLS playlist
-                    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                     temp_file.write(response.content)
-                     temp_file_path = temp_file.name
-
-            # Open the downloaded HLS playlist file
-                with open(temp_file_path, "r") as f:
-                 playlist_content = f.read()
-
-            # Search for the matching URL within the playlist content
-                lines = playlist_content.split('\n')
-                matching_url = None
-                for line in lines:
-                 if line.startswith('#EXT-X-STREAM-INF'):
-                    resolution = re.search(r'RESOLUTION=(\d+x\d+)', line).group(1)
-                    if quality in resolution:
-                        # Extract the URL from the next line
-                        matching_url = lines[lines.index(line) + 1]
-                        break
-
-            # If matching URL found, assign it to the `url` variable
-                if matching_url:
-                 url = matching_url
-                else:
-                 print("Matching quality not found in the playlist")
-
-            # Clean up the temporary file
-                 os.remove(temp_file_path)
-        
-             except Exception as e:
-                print("Error:", str(e))
+            elif "funacademy.app/play?url=" in url or "funacademy.app/m3u8?url=" :
+                _ , data = url.split('=')
+                decoded_bytes = base64.b64decode(data)
+                url = decoded_bytes.decode('utf-8')
 
              #name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip() 
